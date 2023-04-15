@@ -8,7 +8,10 @@ export class AppService {
 
   private readonly users: CreateUserRequestDto[] = [];
 
-  constructor(@Inject('COMMUNICATION') private readonly client: ClientProxy) {}
+  constructor(
+    @Inject('COMMUNICATION') private readonly communiationClient: ClientProxy,
+    @Inject('ANALYTICS') private readonly analyticsClient: ClientProxy
+  ) { }
 
   getHello(): string {
     return 'Hello World!';
@@ -17,8 +20,9 @@ export class AppService {
   createUser(createUserRequest: CreateUserRequestDto) {
     this.users.push(createUserRequest);
     console.log('User created: ', createUserRequest);
-    
-    this.client.emit('user_created', new CreateUserEvent(createUserRequest.email));
+
+    this.communiationClient.emit('user_created', new CreateUserEvent(createUserRequest.email));
+    this.analyticsClient.emit('user_created', new CreateUserEvent(createUserRequest.email));
     return new CreateUserEvent(createUserRequest.email);
   }
 }
