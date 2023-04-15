@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { EventPattern } from '@nestjs/microservices';
+import { EventPattern, MessagePattern } from '@nestjs/microservices';
 import { CreateUserEvent } from './create-user.event';
 
 @Controller()
@@ -16,4 +16,10 @@ export class AppController {
   handleUserCreated(data: CreateUserEvent) {
    this.appService.handleUserCreated(data);
   }
+
+  @MessagePattern({cmd: 'get_analytics'})
+  getAnalytics() {
+    return this.appService.getAnalytics();
+  }
+
 }

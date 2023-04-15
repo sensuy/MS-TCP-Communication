@@ -25,4 +25,8 @@ export class AppService {
     this.analyticsClient.emit('user_created', new CreateUserEvent(createUserRequest.email));
     return new CreateUserEvent(createUserRequest.email);
   }
+
+  getAnalytics() {
+    return this.analyticsClient.send({cmd: 'get_analytics'}, {});
+  }
 }

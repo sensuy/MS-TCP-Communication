@@ -16,4 +16,8 @@ export class AppService {
       timestamp: new Date(),
     });
   }
+
+  getAnalytics() {
+    return this.analytics;
+  }
 }

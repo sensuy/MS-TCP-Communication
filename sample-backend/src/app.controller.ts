@@ -16,4 +16,9 @@ export class AppController {
     return this.appService.createUser(createUserRequestDto);
   }
 
+  @Get('analytics')
+  getAnalytics() {
+    return this.appService.getAnalytics();
+  }
+
 }
